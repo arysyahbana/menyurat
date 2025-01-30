@@ -25,7 +25,7 @@ Route::get("/", [LandingPageController::class, "index"])->name("landing-page");
 
 Auth::routes(["register" => false, "confirm" => false, "reset" => false]);
 
-Route::middleware(["auth", "prevent_back"])->group(function() {
+Route::middleware(["auth", "prevent_back", "throttle:60,1"])->group(function () {
     /**
      * data akun
      */
@@ -33,17 +33,17 @@ Route::middleware(["auth", "prevent_back"])->group(function() {
     Route::put("/profile", [ProfileController::class, "update"])->name("profile.update");
     Route::put("/password/update", [UpdatePasswordController::class, "update"])->name("password.change");
 
-    Route::middleware(["completed_profile"])->group(function() {
+    Route::middleware(["completed_profile"])->group(function () {
         Route::get("/dashboard", [HomeController::class, "dashboard"])->name("dashboard");
 
-        Route::group(["middleware" => ["permission:users_manage"]], function() {
+        Route::group(["middleware" => ["permission:users_manage"]], function () {
             /**
              * data user
              */
             Route::resource('user', UserController::class)->except("edit", "show", "update");
         });
 
-        Route::group(["middleware" => ["permission:letters_manage"]], function() {
+        Route::group(["middleware" => ["permission:letters_manage"]], function () {
             /**
              * data surat
              */
@@ -73,5 +73,3 @@ Route::middleware(["auth", "prevent_back"])->group(function() {
         });
     });
 });
-
-

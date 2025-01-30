@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/navbar.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/buat_surat_create.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/surat.css') }}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         @yield("css")
 
         <script src="https://kit.fontawesome.com/82ebf8392e.js" crossorigin="anonymous"></script>

@@ -20,7 +20,6 @@ class LetterLogController extends Controller
         // dd($logs);
 
         $view = config(sprintf("central.letter_types.%s.view", $commonLetterLog->type));
-
         return view($view, [
             "user" => auth()->user()->load("urbanVillage", "district", "region", "province"),
             "commonLog" => $commonLetterLog,
@@ -30,10 +29,11 @@ class LetterLogController extends Controller
 
     public function store(StoreLetterLogRequest $request, CommonLetterLog $commonLetterLog)
     {
+        // dd($request->all());
+        // die;
         $validated = $request->validated();
         $data = ConverterLetterLog::setLetterLog($commonLetterLog, $validated);
-
-        foreach($data as $key => $value) {
+        foreach ($data as $key => $value) {
             LetterLog::where("common_letter_log_id", $commonLetterLog->id)
                 ->where("field_name", $value["field_name"])
                 ->update($value);
