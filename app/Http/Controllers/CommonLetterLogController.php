@@ -22,8 +22,8 @@ class CommonLetterLogController extends Controller
     {
         $letters = config("central.letter_types");
 
-        if($request->query("search") !== null) {
-            $letters = array_filter($letters, function($name) use($request) {
+        if ($request->query("search") !== null) {
+            $letters = array_filter($letters, function ($name) use ($request) {
                 return str_contains(strtolower($name), strtolower($request->query("search")));
             }, ARRAY_FILTER_USE_KEY);
         }
@@ -38,23 +38,23 @@ class CommonLetterLogController extends Controller
         $existLetterType = false;
 
         // check letter type
-        foreach(array_keys(config("central.letter_types")) as $key) {
-            if(strtolower($letterType) === strtolower($key)) {
+        foreach (array_keys(config("central.letter_types")) as $key) {
+            if (strtolower($letterType) === strtolower($key)) {
                 $letterType = $key;
                 $existLetterType = true;
                 break;
             }
         }
 
-        if(!$existLetterType) {
+        if (!$existLetterType) {
             return abort(404);
         }
 
         $commonLetterLogs = CommonLetterLog::where("type", $letterType)
-                                ->search($request->query("search"))
-                                ->published($request->query("published"))
-                                ->paginate(10)
-                                ->withQueryString();
+            ->search($request->query("search"))
+            ->published($request->query("published"))
+            ->paginate(10)
+            ->withQueryString();
 
         return view("user.kelola_surat.child_kelola_surat.index", ["title" => $letterType, "commonLogs" => $commonLetterLogs]);
     }
@@ -67,7 +67,7 @@ class CommonLetterLogController extends Controller
         $validated = $request->validated();
 
         // check letter type
-        if(!array_key_exists($validated["type"], config("central.letter_types"))) {
+        if (!array_key_exists($validated["type"], config("central.letter_types"))) {
             return back()->with("error", "Surat gagal ditambahkan");
         }
 
@@ -91,15 +91,15 @@ class CommonLetterLogController extends Controller
         $existLetterType = false;
 
         // check letter type
-        foreach(array_keys(config("central.letter_types")) as $key) {
-            if(strtolower($letterType) === strtolower($key)) {
+        foreach (array_keys(config("central.letter_types")) as $key) {
+            if (strtolower($letterType) === strtolower($key)) {
                 $letterType = $key;
                 $existLetterType = true;
                 break;
             }
         }
 
-        if(!$existLetterType) {
+        if (!$existLetterType) {
             return back()->with("error", "Surat tidak tersedia");
         }
 
@@ -161,7 +161,7 @@ class CommonLetterLogController extends Controller
          * TODO View: kode dibawah ini untuk lihat bentuk datanya
          * kalau mau lihat halamannya, comment saja kode baris 21
          */
-        dd($logs);
+        // dd($logs);
         return $logs;
     }
 

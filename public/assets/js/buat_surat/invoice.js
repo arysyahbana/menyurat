@@ -144,21 +144,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const taxRow = document.querySelector(".tax").parentElement;
     const shippingRow = document.querySelector(".shipping").parentElement;
 
-    // Load saved values when page loads
-    loadSavedValues();
-    function loadSavedValues() {
-        // Load subtotal
-        const savedSubtotal = localStorage.getItem("invoice_subtotal");
-        if (savedSubtotal && subtotalElement) {
-            subtotalElement.textContent = formatCurrency(savedSubtotal);
-        }
-        // Load total
-        const savedTotal = localStorage.getItem("invoice_total");
-        if (savedTotal && totalElement) {
-            totalElement.textContent = formatCurrency(savedTotal);
-        }
-    }
-
     function handleInputChange(input, element, row, isNegative = false) {
         const value = parseFloat(input.value) || 0;
         if (value > 0) {
@@ -263,6 +248,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (totalElement) {
             totalElement.textContent = formatCurrency(total);
         }
+
+        // Update hidden input values
+        document.getElementById("subtotal").value = subtotal;
+        document.getElementById("total").value = total;
     }
 
     // Add item to table
@@ -342,44 +331,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const qty = parseFloat(formElements.qty.value) || 0;
         const amount = unitPrice * qty;
         formElements.amount.value = amount;
-    }
-
-    function saveInvoiceData() {
-        const subtotal =
-            parseFloat(
-                subtotalElement.textContent
-                    .replace("Rp. ", "")
-                    .replace(/\./g, "")
-            ) || 0;
-
-        const discount =
-            parseFloat(
-                discountElement.textContent
-                    .replace("Rp. ", "")
-                    .replace(/\./g, "")
-                    .replace("-", "")
-            ) || 0;
-
-        const tax =
-            parseFloat(
-                taxElement.textContent.replace("Rp. ", "").replace(/\./g, "")
-            ) || 0;
-
-        const shipping =
-            parseFloat(
-                shippingElement.textContent
-                    .replace("Rp. ", "")
-                    .replace(/\./g, "")
-            ) || 0;
-
-        const total = subtotal - discount + tax + shipping;
-
-        // Simpan semua data ke localStorage
-        localStorage.setItem("invoice_subtotal", subtotal);
-        localStorage.setItem("invoice_total", total);
-        // localStorage.setItem("invoice_discount", discount);
-        // localStorage.setItem("invoice_tax", tax);
-        // localStorage.setItem("invoice_shipping", shipping);
     }
 
     // Remove row on table click
@@ -520,6 +471,5 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("input-letter-form");
     form.addEventListener("submit", function (e) {
         // Additional validation or processing can be added here if needed
-        saveInvoiceData();
     });
 });

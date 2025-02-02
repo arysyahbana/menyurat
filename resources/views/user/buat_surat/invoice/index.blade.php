@@ -114,6 +114,8 @@
                         <div id="informasi_item" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
                             <div class="accordion-body">
                                 <div id="dynamic-input-container">
+                                    <input type="hidden" name="subtotal" id="subtotal">
+                                    <input type="hidden" name="total" id="total">
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="col col-4">
                                             <div class="mb-3">
@@ -233,7 +235,6 @@
                                             @endif
                                         @endforeach
                                     @endif
-
                                 </div>
                             </div>
                         </div>
@@ -489,45 +490,24 @@
                     <div class="col col-5">
                         <div class="d-flex justify-content-between">
                             <p>Subtotal</p>
-                            <p class="subtotal">Rp. 0</p>
+                            <p class="subtotal">Rp. {{ $logs["subtotal"] ?? "0" }}</p>
                         </div>
-                        @if ($logs["discount"])
-                            <div class="d-flex justify-content-between">
-                                <p>Diskon</p>
-                                <p class="discount">-Rp. {{ $logs["discount"] }}</p>
-                            </div>
-                        @else
-                            <div class="d-flex justify-content-between d-none">
-                                <p>Diskon</p>
-                                <p class="discount">-Rp. 0</p>
-                            </div>
-                        @endif
-                        @if ($logs["tax"])
-                            <div class="d-flex justify-content-between">
-                                <p>Tax</p>
-                                <p class="tax">Rp. {{ $logs["tax"] }}</p>
-                            </div>
-                        @else
-                            <div class="d-flex justify-content-between d-none">
-                                <p>Tax</p>
-                                <p class="tax">Rp. 0</p>
-                            </div>
-                        @endif
-                        @if ($logs["shipping"])
-                            <div class="d-flex justify-content-between">
-                                <p>Shipping</p>
-                                <p class="shipping">Rp. {{ $logs["shipping"] }}</p>
-                            </div>
-                        @else
-                            <div class="d-flex justify-content-between d-none">
-                                <p>Shipping</p>
-                                <p class="shipping">Rp. 0</p>
-                            </div>
-                        @endif
+                        <div class="d-flex justify-content-between">
+                            <p>Diskon</p>
+                            <p class="discount">-Rp. {{ $logs["discount"] ?? "0" }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p>Tax</p>
+                            <p class="tax">Rp. {{ $logs["tax"] ?? "Rp. 0" }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p>Shipping</p>
+                            <p class="shipping">Rp. {{ $logs["shipping"] ?? "0" }}</p>
+                        </div>
                         <hr>
                         <div class="d-flex justify-content-between mt-2">
                             <p class="fw-bold">Total</p>
-                            <p class="total">Rp. 0</p>
+                            <p class="total">Rp. {{ $logs["total"] ?? "0" }}</p>
                         </div>
                     </div>
                 </div>

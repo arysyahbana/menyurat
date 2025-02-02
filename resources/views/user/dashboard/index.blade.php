@@ -120,7 +120,7 @@
                                                 </form>
                                             </li>
                                             <li>
-                                                <form action="{{ route('letter.common.preview', ['commonLetterLog' => $commonLog->id]) }}" method="post">
+                                                <form action="{{ route('letter.common.preview', ['commonLetterLog' => $commonLog->id]) }}" method="post" target="_blank">
                                                     @csrf
                                                     <button type="submit" class="dropdown-item text-black btn">
                                                         <i class="fa-regular fa-eye me-2"></i>Lihat

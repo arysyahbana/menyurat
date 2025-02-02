@@ -68,6 +68,16 @@ return [
             "cast" => "date",
         ],
 
+        "subtotal" => [
+            "validate" => "nullable|integer|min:0",
+            "cast" => "integer",
+        ],
+
+        "total" => [
+            "validate" => "nullable|integer|min:0",
+            "cast" => "integer",
+        ],
+
         /**
          * @param string
          * ? Deskripsi item
