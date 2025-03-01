@@ -33,16 +33,16 @@
         <table width="100%">
             <tr>
                 <!-- Logo -->
-                <td width="20%" align="left">
+                <td width="10%" align="center">
                     @if ($user->logo_url)
-                        <img src="{{ public_path('storage/' . $user->logo_url) }}" alt="Logo perusahaan" style="height:70px;">
+                        <img src="{{ public_path('storage/' . $user->logo_url) }}" alt="Logo perusahaan" style="width: 80px;height:80px;margin:0;object-fit: cover; border-radius: 10%;">
                     @else
-                        <img src="{{ public_path('assets/img/profil2.png') }}" alt="Logo perusahaan" style="height:70px;">
+                        <img src="{{ public_path('assets/img/profil2.png') }}" alt="Logo perusahaan" style="width: 80px;height:80px;margin:0;object-fit: cover">
                     @endif
                 </td>
 
                 <!-- Informasi Perusahaan -->
-                <td width="80%" align="center">
+                <td width="60%" align="center">
                     <h1 style="font-size: 18px; font-weight: bold; margin: 0;">
                         {{ strtoupper($user->name) }}
                     </h1>
@@ -60,6 +60,8 @@
                         @endif
                     </p>
                 </td>
+
+                <td width="10%"></td>
             </tr>
         </table>
     </div>

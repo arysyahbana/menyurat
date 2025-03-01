@@ -173,3 +173,9 @@ table tr:first-child th:last-child {
 .dropdown-item:hover {
     background-color: rgb(240, 231, 252) !important;
 }
+
+.pembungkus p {
+    height: 40px; /* Sesuaikan dengan kebutuhan */
+    overflow: hidden; /* Mencegah teks terlalu panjang */
+    text-align: center;
+}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ConverterLetterLog;
 use App\Http\Requests\StoreLetterLogRequest;
+use App\Http\Requests\UpdateNumberOfLetterRequest;
 use App\Models\CommonLetterLog;
 use App\Models\LetterLog;
 
@@ -40,5 +41,19 @@ class LetterLogController extends Controller
         }
 
         return redirect()->route("dashboard")->with("success", "Data surat berhasil disimpan");
+    }
+
+    public function storeAndPublish(UpdateNumberOfLetterRequest $updateRequest, StoreLetterLogRequest $storeRequest, CommonLetterLog $commonLetterLog)
+    {
+        // Validasi dari kedua request
+        $validatedUpdate = $updateRequest->validated();
+
+        // Langsung terbitkan surat dengan nomor surat (gunakan validasi dari UpdateNumberOfLetterRequest)
+        CommonLetterLog::where("id", $commonLetterLog->id)
+            ->update([
+                "number_of_letter" => $validatedUpdate["number_of_letter"],
+            ]);
+
+        return redirect()->route("dashboard")->with("success", "Surat berhasil diterbitkan!");
     }
 }

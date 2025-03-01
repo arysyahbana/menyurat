@@ -22,9 +22,10 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "logo" => ["required", "file", "image", "max:2048"],
+            // "logo" => ["required", "file", "image", "max:2048"],
+            "logo" => ["required", "string", "regex:/^data:image\/(png|jpe?g);base64,.+/i"],
             "name" => ["required", "string", "min:3"],
-            "email" => ["required", "email", "unique:users,email,".auth()->user()->id.",id"],
+            "email" => ["required", "email", "unique:users,email," . auth()->user()->id . ",id"],
             "web_url" => ["nullable", "string", "url"],
             "street" => ["required", "string", "min:5", "max:50"],
             "urban_village_id" => ["required", "integer"],

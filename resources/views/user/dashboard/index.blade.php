@@ -16,7 +16,7 @@
         </div>
 
 
-        <div class="scrolling-wrapper">
+        <div class="scrolling-wrapper mt-5">
             <button data-bs-toggle="modal" data-bs-target="#createBlankModal" class="pembungkus border-0 bg-transparent">
                 <div class="card" style="width: 150px; height:180px">
                     <img src="/assets/img/putih.jpg" alt="Avatar" class="image" style=" width: 100%; height: 100%;">

@@ -334,7 +334,21 @@
                     {{-- end payment method --}}
                 </div>
 
-                <button type="submit" class="btn btn-primary mt-4">Simpan</button>
+                <div class="btn-group dropend mt-4">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Simpan sebagai...
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button type="submit" class="dropdown-item">Draft</button>
+                        </li>
+                        <li>
+                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalNomorSurat" id="btnTerbit">
+                                Terbitkan
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </form>
         </div>
 
@@ -517,10 +531,65 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Update Nomor Surat -->
+    <div class="modal fade mt-5" id="modalNomorSurat" tabindex="-1" aria-labelledby="modalNomorSuratLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-body my-4 mx-3">
+                <form action="{{ route('letter.log.publish', ['commonLetterLog' => $commonLog->id]) }}" method="post"
+                    id="update-number-of-letter">
+                    @csrf
+                    @method("PUT")
+                    <div class="text-center mb-4">
+                        <label for="name" class="mb-3">
+                            <h2 class="modal-title fs-5" id="staticBackdropLabel">Silahkan Masukan Nomor Surat</h2>
+                        </label>
+                        <input type="text" name="number_of_letter" class="form-control" id="number_of_letter"
+                            placeholder="Nomor surat..." required>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary" id="btnSubmitNomorSurat">Terbitkan Surat</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section("javascript")
     <script src="{{ asset("assets/js/date.js") }}"></script>
     <script src="{{ asset('assets/js/page_break.js') }}"></script>
     <script src="{{ asset("assets/js/buat_surat/invoice.js") }}"></script>
+
+    <script>
+        $(document).ready(function () {
+        $("#btnTerbit").click(function () {
+            let formData = $("#input-letter-form").serialize(); // Ambil data form surat
+
+            $.post("{{ route('letter.log.store', ['commonLetterLog' => $commonLog->id]) }}", formData, function (response) {
+                console.log("Data surat berhasil disimpan sebagai draft.");
+
+                // Tahan redirect dan tampilkan modal input nomor surat
+                $("#modalNomorSurat").modal("show");
+            }).fail(function (error) {
+                console.error("Gagal menyimpan surat:", error);
+            });
+        });
+
+        // Saat tombol submit nomor surat ditekan
+        $("#btnSubmitNomorSurat").click(function () {
+            let numberOfLetter = $("#number_of_letter").val(); // Ambil nomor surat yang dimasukkan
+
+            $.post("{{ route('letter.log.publish', ['commonLetterLog' => $commonLog->id]) }}", { number_of_letter: numberOfLetter }, function (response) {
+                console.log("Surat berhasil diterbitkan.");
+                window.location.href = "/dashboard"; // Redirect setelah sukses
+            }).fail(function (error) {
+                console.error("Gagal menerbitkan surat:", error);
+            });
+        });
+    });
+    </script>
 @endsection

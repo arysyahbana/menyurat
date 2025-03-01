@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Scopes\OrderByScope;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +19,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissions, HasUuids;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissions, HasUuids, CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
@@ -82,14 +83,14 @@ class User extends Authenticatable
 
     public function scopeSearch(Builder $builder, $keyword)
     {
-        $builder->when($keyword !== null, function() use($keyword, $builder) {
-            $builder->where("name", "like", "%".$keyword."%");
+        $builder->when($keyword !== null, function () use ($keyword, $builder) {
+            $builder->where("name", "like", "%" . $keyword . "%");
         });
     }
 
     public function scopeActive(Builder $builder, $active)
     {
-        $builder->when($active !== null, function() use($active, $builder) {
+        $builder->when($active !== null, function () use ($active, $builder) {
             $builder->where("active", intval($active));
         });
     }

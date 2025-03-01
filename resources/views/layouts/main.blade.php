@@ -18,7 +18,14 @@
     <link rel="stylesheet" href="{{ asset('/assets/css/button.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/background_color.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/text_custom.css') }}">
+
     <script src="https://kit.fontawesome.com/82ebf8392e.js" crossorigin="anonymous"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+
 </head>
 
 <body>

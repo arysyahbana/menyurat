@@ -38,57 +38,51 @@
 </head>
 
 <body class="bg-login">
-
-
     <div class="card w-30 mb-3 m-auto " style="margin-top: 20vh !important">
         <div class="row p-3 bg-white m-1">
-            @if (session("status"))
-                <div class="m-auto alert alert-success col-md-12 text-center">
-                    {{ session("status") }}
+            @if ($errors->any())
+                <div class="m-auto alert alert-danger col-md-12 text-center">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
                 </div>
             @endif
             <div class="col-md-12 mt-4">
-                <h1 class="text-center  text-primer">Masuk</h1>
+                <h1 class="text-center  text-primer">Reset Password</h1>
                 <div class="d-flex flex-column">
-                    <small class="text-center m-auto">Selamat datang di Menyurat</small>
-                    <small class="text-center m-auto">Silahkan Masukan Email dan Password dibawah ini</small>
+                    <small class="text-center m-auto">Silahkan Masukan Email untuk reset password</small>
                 </div>
             </div>
             <div class="col-md-12 mb-4">
-                <form action="{{ route('login') }}" method="post">
+                <form action="{{ route('password.update') }}" method="post">
                     @csrf
                     <div class="d-flex flex-column mb-3 mt-4">
                         <label for="email" class="mb-1"><strong>Email</strong></label>
                         <input type="text" value="{{ old("email") }}" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Email..." required>
-
-                        @error("email")
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
                     </div>
-
-                    <div class="d-flex flex-column  ">
+                    <div class="d-flex flex-column mb-3 mt-4">
                         <label for="password" class="mb-1"><strong>Password</strong></label>
-                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password..." autocomplete="off" required>
-
-                        @error("password")
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        <input type="password" value="{{ old("password") }}" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password..." required>
                     </div>
-
-                    <div class="d-flex justify-content-end mt-3">
-                        <a href="{{ route('password.request') }}"><small>Lupa Password</small></a>
+                    <div class="d-flex flex-column mb-3 mt-4">
+                        <label for="repassword" class="mb-1"><strong>Retype Password</strong></label>
+                        <input type="password" value="{{ old("repassword") }}" name="password_confirmation" class="form-control @error('repassword') is-invalid @enderror" id="repassword" placeholder="Retype Password..." required>
                     </div>
-                    <button type="submit"" class="w-100 btn btn-primer mt-3 ">Masuk</button>
+                    <div class="d-flex flex-column mb-3 mt-4">
+                        <input type="hidden" name="token" class="form-control" value="{{ $token }}" id="token">
+                    </div>
+                    <button type="submit" class="w-100 btn btn-primer mt-3 ">Kirim</button>
                 </form>
             </div>
         </div>
     </div>
-
     @include("layouts.toast")
+
+    {{-- @if (session("status"))
+        <div class="alert alert-success col-md-6 mt-3" style="max-width: 400px">
+            {{ session("status") }}
+        </div>
+    @endif --}}
 </body>
 
 </html>

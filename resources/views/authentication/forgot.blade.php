@@ -38,8 +38,6 @@
 </head>
 
 <body class="bg-login">
-
-
     <div class="card w-30 mb-3 m-auto " style="margin-top: 20vh !important">
         <div class="row p-3 bg-white m-1">
             @if (session("status"))
@@ -48,14 +46,13 @@
                 </div>
             @endif
             <div class="col-md-12 mt-4">
-                <h1 class="text-center  text-primer">Masuk</h1>
+                <h1 class="text-center  text-primer">Reset Password</h1>
                 <div class="d-flex flex-column">
-                    <small class="text-center m-auto">Selamat datang di Menyurat</small>
-                    <small class="text-center m-auto">Silahkan Masukan Email dan Password dibawah ini</small>
+                    <small class="text-center m-auto">Silahkan Masukan Email untuk reset password</small>
                 </div>
             </div>
             <div class="col-md-12 mb-4">
-                <form action="{{ route('login') }}" method="post">
+                <form action="{{ route('password.email') }}" method="post">
                     @csrf
                     <div class="d-flex flex-column mb-3 mt-4">
                         <label for="email" class="mb-1"><strong>Email</strong></label>
@@ -67,27 +64,11 @@
                             </span>
                         @enderror
                     </div>
-
-                    <div class="d-flex flex-column  ">
-                        <label for="password" class="mb-1"><strong>Password</strong></label>
-                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password..." autocomplete="off" required>
-
-                        @error("password")
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="d-flex justify-content-end mt-3">
-                        <a href="{{ route('password.request') }}"><small>Lupa Password</small></a>
-                    </div>
-                    <button type="submit"" class="w-100 btn btn-primer mt-3 ">Masuk</button>
+                    <button type="submit" class="w-100 btn btn-primer mt-3 ">Kirim</button>
                 </form>
             </div>
         </div>
     </div>
-
     @include("layouts.toast")
 </body>
 
