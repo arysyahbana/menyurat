@@ -17,10 +17,9 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        if($user->hasRole("admin")) {
+        if ($user->hasRole("admin")) {
             return $this->adminDashboard();
-        }
-        else {
+        } else {
             return $this->userDashboard($request);
         }
     }
@@ -34,9 +33,9 @@ class HomeController extends Controller
 
         return view('admin.dashboard.index', [
             "users" => $users,
-            "totalUser"=>$totalUser,
-            "activeUser"=>$activeUser,
-            "inActiveUser"=>$inActiveUser,
+            "totalUser" => $totalUser,
+            "activeUser" => $activeUser,
+            "inActiveUser" => $inActiveUser,
         ]);
     }
 
@@ -44,9 +43,8 @@ class HomeController extends Controller
     {
         $letters = config("central.letter_types");
         $commonLetterLogs = CommonLetterLog::search($request->query("search"))
-                        ->published($request->query("published"))
-                        ->limit(10)
-                        ->get();
+            ->published($request->query("published"))
+            ->paginate(10);
 
         return view('user.dashboard.index', [
             "letters" => $letters,

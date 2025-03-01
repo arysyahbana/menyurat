@@ -1,5 +1,23 @@
 @extends('layouts.main')
 @section('content')
+<style>
+    .page-item.active .page-link {
+        background-color: #8538ea !important; /* Ganti dengan warna yang kamu mau */
+        border-color: #8538ea !important;
+        color: #fff !important;
+    }
+
+    .page-link {
+        color: #8538ea !important;
+    }
+
+    .page-link:hover {
+        background-color: #8538ea !important; /* Warna saat di-hover */
+        border-color: #8538ea !important;
+        color: #fff !important;
+    }
+
+</style>
     <link rel="stylesheet" href="{{ asset('assets/css/style_dashboard.css') }}">
     <div class="content px-5 py-3 ">
         <p class="fw-bold mb-2" style="font-size: 20px;">Hai, Edu labs !</p>
@@ -164,6 +182,9 @@
                     @endif
                 </tbody>
             </table>
+            <div class="d-flex justify-content-end">
+                {{ $commonLogs->links() }}
+            </div>
         </div>
     </div>
 
