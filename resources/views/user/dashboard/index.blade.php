@@ -22,7 +22,7 @@
     <div class="content px-5 py-3 ">
         <p class="fw-bold mb-2" style="font-size: 20px;">Hai, Edu labs !</p>
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="my-auto">Selamat Datang di Menyurat by Metro Software</h2>
+            <h2 class="my-auto">Selamat Datang di Menyurat by {{ auth()->user()->name ?? 'User' }}</h2>
             <div class="btn-container">
                 <div class="slide-buttons">
                     <button id="scrollLeftButton" class="slide-button btn btn-primary"><i
